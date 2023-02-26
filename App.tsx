@@ -16,14 +16,22 @@ import {
 } from 'react-native'
 import CurrentWeather from './components/CurrentWeather/CurrentWeather'
 import WeatherCondition from './components/WeatherCondition/WeatherCondition'
+import CurrentTime from './components/CurrentTime/CurrentTime'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { weather } from './api/openweather'
 
 export default function App () {
   const [fontsLoaded] = useFonts({
     'Quicksand-Regular': require('./assets/fonts/Quicksand-Regular.ttf')
   })
+
+  let cityWeather
+
+  useEffect(() => {
+    cityWeather = weather()
+  }, [])
 
   const windowHeight = useWindowDimensions().height
 
@@ -63,8 +71,10 @@ export default function App () {
         <View style={styles.search}>
           <TextInput style={styles.textInput} placeholder='Search city' />
         </View>
-        <StatusBar style='auto' />
+        <CurrentTime></CurrentTime>
         <WeatherCondition></WeatherCondition>
+
+        <StatusBar style='auto' />
       </View>
     </KeyboardAvoidingView>
   )

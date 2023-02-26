@@ -14,7 +14,8 @@ import {
   SafeAreaView,
   useWindowDimensions
 } from 'react-native'
-import CurrentWeather from './components/currentWeather/CurrentWeather'
+import CurrentWeather from './components/CurrentWeather/CurrentWeather'
+import WeatherCondition from './components/WeatherCondition/WeatherCondition'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -63,6 +64,7 @@ export default function App () {
           <TextInput style={styles.textInput} placeholder='Search city' />
         </View>
         <StatusBar style='auto' />
+        <WeatherCondition></WeatherCondition>
       </View>
     </KeyboardAvoidingView>
   )
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
   },
   search: {
     width: '100%',
-    height: '40%',
+    // height: '40%',
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding: 10

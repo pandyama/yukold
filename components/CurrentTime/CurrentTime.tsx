@@ -2,10 +2,15 @@ import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { styles } from './CurrentTimeStyle'
 
-export default function CurrentTime () {
+interface Time {
+  time: string
+  date: string
+}
+
+export default function CurrentTime ({ time, date }: Time) {
   return (
     <View style={styles.card}>
-      <Text style={{ ...styles.text }}>Feb 26 - 9:45 AM</Text>
+      <Text style={{ ...styles.text }}>{time}</Text>
     </View>
   )
 }

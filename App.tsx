@@ -3,20 +3,14 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import {
   StyleSheet,
-  Text,
   View,
   TextInput,
-  ScrollView,
   Platform,
-  Keyboard,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  SafeAreaView,
   useWindowDimensions
 } from 'react-native'
 import CurrentWeather from './components/CurrentWeather/CurrentWeather'
 import WeatherCondition from './components/WeatherCondition/WeatherCondition'
-import CurrentTime from './components/CurrentTime/CurrentTime'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -24,13 +18,21 @@ import { weather } from './api/openweather'
 
 export default function App () {
   const [fontsLoaded] = useFonts({
-    'Quicksand-Regular': require('./assets/fonts/Quicksand-Regular.ttf')
+    'Quicksand-Regular': require('./assets/fonts/Quicksand/Quicksand-Regular.ttf'),
+    'RadioCanada-Bold': require('./assets/fonts/RadioCanada/RadioCanada-Bold.ttf'),
+    'RadioCanada-Regular': require('./assets/fonts/RadioCanada/RadioCanada-Regular.ttf')
   })
 
-  let cityWeather
+  const [loading, setLoading] = useState(true)
+  const [fetchWeather, setFetchWeather]: any = useState(null)
 
   useEffect(() => {
-    cityWeather = weather()
+    weather()
+      .then((res: any) => {
+        setLoading(false)
+        setFetchWeather(res)
+      })
+      .catch(() => setLoading(true))
   }, [])
 
   const windowHeight = useWindowDimensions().height
@@ -58,24 +60,34 @@ export default function App () {
         android: 500
       })}
     >
-      {/* // <SafeAreaView style={{ flex: 1 }}> */}
-      <View
-        style={{
-          ...styles.container,
-          minHeight: Math.round(windowHeight) - 80
-        }}
-        onLayout={onLayoutRootView}
-      >
-        <CurrentWeather></CurrentWeather>
+      {!loading && (
+        <View
+          style={{
+            ...styles.container,
+            minHeight: Math.round(windowHeight) - 80
+          }}
+          onLayout={onLayoutRootView}
+        >
+          <CurrentWeather
+            temperature={fetchWeather?.temp.toString()}
+            description={fetchWeather?.description.toString()}
+            time={fetchWeather?.time.toString()}
+            date={fetchWeather?.date.toString()}
+          ></CurrentWeather>
+          <View style={styles.search}>
+            <TextInput style={styles.textInput} placeholder='Search city' />
+          </View>
+          <WeatherCondition
+            feelsLike={fetchWeather?.feelsLike.toString()}
+            wind={fetchWeather?.wind.toString()}
+            humidity={fetchWeather?.humidity.toString()}
+            high={fetchWeather?.high.toString()}
+            low={fetchWeather?.low.toString()}
+          ></WeatherCondition>
 
-        <View style={styles.search}>
-          <TextInput style={styles.textInput} placeholder='Search city' />
+          <StatusBar style='auto' />
         </View>
-        <CurrentTime></CurrentTime>
-        <WeatherCondition></WeatherCondition>
-
-        <StatusBar style='auto' />
-      </View>
+      )}
     </KeyboardAvoidingView>
   )
 }
@@ -84,7 +96,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#449AFF',
-    // alignItems: 'flex-start',
     justifyContent: 'flex-start'
   },
   textInput: {
@@ -93,15 +104,13 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '40%',
     textAlign: 'center',
-    fontFamily: 'Quicksand-Regular',
+    fontFamily: 'RadioCanada-Regular',
     fontSize: 20
   },
   search: {
     width: '100%',
-    // height: '40%',
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding: 10
-    // borderWidth: 2
   }
 })

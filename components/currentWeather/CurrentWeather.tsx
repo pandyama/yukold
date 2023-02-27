@@ -1,12 +1,26 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { styles } from './CurrentWeatherStyle'
+import CurrentTime from '../CurrentTime/CurrentTime'
 
-export default function CurrentWeather () {
+interface Weather {
+  temperature: string
+  description: string
+  time: string
+  date: string
+}
+
+export default function CurrentWeather ({
+  temperature,
+  description,
+  time,
+  date
+}: Weather) {
   return (
     <View style={styles.card}>
       <View style={styles.city}>
         <Text style={styles.text}>Calgary</Text>
+        <CurrentTime time={time} date={date}></CurrentTime>
       </View>
       <View>
         <Image
@@ -15,10 +29,10 @@ export default function CurrentWeather () {
         />
       </View>
       <View style={styles.currentTemp}>
-        <Text style={styles.text}>35 &deg;C</Text>
+        <Text style={styles.text}>{temperature} &deg;C</Text>
       </View>
       <View style={styles.weatherDescription}>
-        <Text style={styles.descText}>Light flurries</Text>
+        <Text style={styles.descText}>{description?.toLocaleUpperCase()}</Text>
       </View>
     </View>
   )

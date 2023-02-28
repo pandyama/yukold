@@ -8,18 +8,20 @@ interface Weather {
   description: string
   time: string
   date: string
+  city: string
 }
 
 export default function CurrentWeather ({
   temperature,
   description,
   time,
-  date
+  date,
+  city
 }: Weather) {
   return (
     <View style={styles.card}>
       <View style={styles.city}>
-        <Text style={styles.text}>Calgary</Text>
+        <Text style={styles.text}>{city}</Text>
         <CurrentTime time={time} date={date}></CurrentTime>
       </View>
       <View>

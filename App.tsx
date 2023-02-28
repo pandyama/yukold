@@ -25,6 +25,17 @@ export default function App () {
 
   const [loading, setLoading] = useState(true)
   const [fetchWeather, setFetchWeather]: any = useState(null)
+  const [value, onChangeText] = useState('')
+
+  const getWeather = (city: string) => {
+    weather(city)
+      .then((res: any) => {
+        setLoading(false)
+        setFetchWeather(res)
+        onChangeText('')
+      })
+      .catch(() => setLoading(true))
+  }
 
   useEffect(() => {
     weather()
@@ -73,9 +84,15 @@ export default function App () {
             description={fetchWeather?.description.toString()}
             time={fetchWeather?.time.toString()}
             date={fetchWeather?.date.toString()}
+            city={fetchWeather?.cityName.toString()}
           ></CurrentWeather>
           <View style={styles.search}>
-            <TextInput style={styles.textInput} placeholder='Search city' />
+            <TextInput
+              style={styles.textInput}
+              placeholder='Search city'
+              onSubmitEditing={() => getWeather(value)}
+              onChangeText={text => onChangeText(text)}
+            />
           </View>
           <WeatherCondition
             feelsLike={fetchWeather?.feelsLike.toString()}

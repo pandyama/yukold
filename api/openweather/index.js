@@ -2,24 +2,18 @@ import axios from "axios";
 import moment from "moment";
 
 export const weather = async (city = "calgary") => {
-  // const city = 'Calgary'
   const test = await axios.get(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=0fe37647bf3c4095418a1c5392bb60cc`
   );
-  console.log("🚀 ~ file: index.tsx:8 ~ weather ~ test:", test.data);
 
   const utc = moment();
-  console.log("🚀 ~ file: index.tsx:12 ~ weather ~ utc:", utc);
   const localTimeOffset = test.data.timezone / 3600;
   const localTimeStamp = moment
     .utc(utc)
     .subtract(Math.abs(localTimeOffset), "hours");
-  // console.log('🚀 ~ file: index.tsx:14 ~ weather ~ localTime:', localTimeStamp)
 
   const localDate = moment(localTimeStamp).format("MM-DD-YYYY");
-  console.log("🚀 ~ file: index.tsx:20 ~ weather ~ localDate:", localDate);
   const localTime = moment(localTimeStamp).format("hh:mm A");
-  console.log("🚀 ~ file: index.tsx:22 ~ weather ~ localTime:", localTime);
 
   const weatherStat = {
     cityName: test.data.name,

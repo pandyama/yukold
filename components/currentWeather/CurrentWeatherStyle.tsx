@@ -3,17 +3,15 @@ import { StyleSheet } from 'react-native'
 export const styles = StyleSheet.create({
   card: {
     backgroundColor: '#eff3f9',
-    height: '55%',
+    height: '61%',
     alignItems: 'center',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-around'
   },
-  currentTemp: { padding: 5 },
-  weatherDescription: {
-    padding: 5
-  },
+  currentTemp: {},
+  weatherDescription: {},
   city: {
     padding: 7,
-    margin: 25,
+    // margin: 25,
     width: '100%'
   },
   text: {

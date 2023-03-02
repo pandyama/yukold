@@ -1,10 +1,30 @@
 import axios from "axios";
 import moment from "moment";
 
-export const weather = async (city = "calgary") => {
-  const test = await axios.get(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=0fe37647bf3c4095418a1c5392bb60cc`
-  );
+export const weather = async (city, lat, lon) => {
+  let test;
+
+  if (lat && lon) {
+    try {
+      test = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=0fe37647bf3c4095418a1c5392bb60cc`
+      );
+    } catch (e) {
+      test = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=Calgary&units=metric&appid=0fe37647bf3c4095418a1c5392bb60cc`
+      );
+    }
+  } else if (city) {
+    try {
+      test = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=0fe37647bf3c4095418a1c5392bb60cc`
+      );
+    } catch (e) {
+      test = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=Calgary&units=metric&appid=0fe37647bf3c4095418a1c5392bb60cc`
+      );
+    }
+  }
 
   const utc = moment();
   const localTimeOffset = test.data.timezone / 3600;

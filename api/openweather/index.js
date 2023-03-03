@@ -1,27 +1,29 @@
 import axios from "axios";
 import moment from "moment";
+import Constants from "expo-constants";
 
 export const weather = async (city, lat, lon) => {
-  let test;
+  const key = Constants.expoConfig.extra.API_KEY;
 
+  let test;
   if (lat && lon) {
     try {
       test = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=0fe37647bf3c4095418a1c5392bb60c`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${key}`
       );
     } catch (e) {
       test = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=Calgary&units=metric&appid=0fe37647bf3c4095418a1c5392bb60c`
+        `https://api.openweathermap.org/data/2.5/weather?q=Calgary&units=metric&appid=${key}`
       );
     }
   } else if (city) {
     try {
       test = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=0fe37647bf3c4095418a1c5392bb60c`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`
       );
     } catch (e) {
       test = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=Calgary&units=metric&appid=0fe37647bf3c4095418a1c5392bb60c`
+        `https://api.openweathermap.org/data/2.5/weather?q=Calgary&units=metric&appid=${key}`
       );
     }
   }

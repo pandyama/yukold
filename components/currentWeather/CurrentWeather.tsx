@@ -26,7 +26,7 @@ export default function CurrentWeather ({
       </View>
       <View>
         <Image
-          source={require('../../assets/weather/weather-icon.png')}
+          source={require('../../assets/weather/Clear/Clear-Sunny3.png')}
           style={{ width: 140, height: 100 }}
         />
       </View>

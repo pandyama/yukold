@@ -10,7 +10,9 @@ interface Time {
 export default function CurrentTime ({ time, date }: Time) {
   return (
     <View style={styles.card}>
-      <Text style={{ ...styles.text }}>{time}</Text>
+      <Text style={{ ...styles.text }}>
+        {date}, {time}
+      </Text>
     </View>
   )
 }

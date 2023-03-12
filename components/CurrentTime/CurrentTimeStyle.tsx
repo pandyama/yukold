@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     marginLeft: 5
   },
   text: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'RadioCanada-Regular',
     color: '#878787'
   }

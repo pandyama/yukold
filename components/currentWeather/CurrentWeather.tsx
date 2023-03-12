@@ -13,6 +13,8 @@ interface Weather {
   icon: string
 }
 
+type T = keyof typeof imageAssets
+
 export default function CurrentWeather ({
   temperature,
   description,
@@ -29,7 +31,7 @@ export default function CurrentWeather ({
       </View>
       <View style={styles.icon}>
         <Image
-          source={imageAssets.rainy}
+          source={imageAssets[icon as T]}
           style={{ resizeMode: 'center', width: '100%', height: '100%' }}
         />
       </View>

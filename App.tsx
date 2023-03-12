@@ -121,6 +121,7 @@ export default function App () {
               time={fetchWeather?.time.toString()}
               date={fetchWeather?.date.toString()}
               city={fetchWeather?.cityName.toString()}
+              icon={fetchWeather?.icon}
             ></CurrentWeather>
 
             <WeatherCondition

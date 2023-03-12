@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { styles } from './CurrentWeatherStyle'
 import CurrentTime from '../CurrentTime/CurrentTime'
+import imageAssets from '../../imageAssets'
 
 interface Weather {
   temperature: string
@@ -9,6 +10,7 @@ interface Weather {
   time: string
   date: string
   city: string
+  icon: string
 }
 
 export default function CurrentWeather ({
@@ -16,7 +18,8 @@ export default function CurrentWeather ({
   description,
   time,
   date,
-  city
+  city,
+  icon
 }: Weather) {
   return (
     <View style={styles.card}>
@@ -24,10 +27,10 @@ export default function CurrentWeather ({
         <Text style={styles.text}>{city}</Text>
         <CurrentTime time={time} date={date}></CurrentTime>
       </View>
-      <View>
+      <View style={styles.icon}>
         <Image
-          source={require('../../assets/weather/Clear/Clear-Sunny3.png')}
-          style={{ width: 140, height: 100 }}
+          source={imageAssets.rainy}
+          style={{ resizeMode: 'center', width: '100%', height: '100%' }}
         />
       </View>
       <View style={styles.currentTemp}>

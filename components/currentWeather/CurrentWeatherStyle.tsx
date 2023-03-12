@@ -21,5 +21,6 @@ export const styles = StyleSheet.create({
   descText: {
     fontSize: 30,
     fontFamily: 'RadioCanada-Regular'
-  }
+  },
+  icon: { width: '25%', height: '25%' }
 })

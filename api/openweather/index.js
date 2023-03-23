@@ -4,7 +4,7 @@ import Constants from "expo-constants";
 
 const lightSnowCodes = [600, 612, 615, 620];
 const heavySnowCodes = [602, 622];
-const otherSnowCodes = [601, 611, 613, 616, , 621];
+const otherSnowCodes = [601, 611, 613, 616, 621];
 
 const lightRainCodes = [500, 520, 531];
 const heavyRainCodes = [502, 503, 504, 522];
@@ -67,17 +67,16 @@ const getWeatherIcon = (code) => {
 
 export const weather = async (city, lat, lon) => {
   const key = Constants.expoConfig.extra.API_KEY;
-
+  // console.log("🚀", city);
   let test;
+
   if (lat && lon) {
     try {
       test = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${key}`
       );
     } catch (e) {
-      test = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=Calgary&units=metric&appid=${key}`
-      );
+      return;
     }
   } else if (city) {
     try {
@@ -85,17 +84,11 @@ export const weather = async (city, lat, lon) => {
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`
       );
     } catch (e) {
-      test = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=Calgary&units=metric&appid=${key}`
-      );
+      return;
     }
   }
 
   const weatherCode = test.data.weather[0].id;
-  console.log(
-    "🚀 ~ file: index.js:95 ~ weather ~ test.data:",
-    test.data.timezone
-  );
   const icon = getWeatherIcon(weatherCode);
 
   const utc = moment();

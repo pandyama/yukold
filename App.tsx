@@ -6,6 +6,7 @@ import {
   View,
   TextInput,
   Text,
+  Image,
   Platform,
   KeyboardAvoidingView,
   useWindowDimensions,
@@ -27,7 +28,8 @@ export default function App () {
   })
 
   const [loading, setLoading] = useState(true)
-  const [fetchWeather, setFetchWeather]: any = useState(null)
+  const [fetchWeather, setFetchWeather]: any = useState(false)
+  const [cityWeather, setWeather]: any = useState(null)
   const [value, onChangeText] = useState('')
   const [location, setLocation]: any = useState()
   const [errorMsg, setErrorMsg] = useState('')
@@ -40,23 +42,27 @@ export default function App () {
     setLoading(true)
     weather(city, lat, lon).then((res: any) => {
       setLoading(false)
-      setFetchWeather(res)
-      // onChangeText('')
+      setFetchWeather(true)
+      setWeather(res)
     })
-    // .catch(() => weather('Calgary', null, null))
   }
 
   useEffect(() => {
     const getData = async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync()
-      if (status !== 'granted') {
-        getWeather('Calgary', null, null)
-        setErrorMsg('Permission to access location was denied')
-        return
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync()
+        if (status !== 'granted') {
+          setLoading(false)
+          setErrorMsg('Permission to access location was denied')
+          return
+        }
+
+        const loc = await Location.getCurrentPositionAsync({})
+        setLocation(loc)
+        getWeather('Calgary', loc.coords.latitude, loc.coords.longitude)
+      } catch (e) {
+        setLoading(false)
       }
-      const loc = await Location.getCurrentPositionAsync({})
-      setLocation(loc)
-      getWeather('Calgary', loc.coords.latitude, loc.coords.longitude)
     }
     getData()
   }, [])
@@ -77,7 +83,15 @@ export default function App () {
     return (
       <View style={styles.card}>
         <View style={styles.currentTemp}>
-          <Text style={styles.text}>Scanning 🌩</Text>
+          <Image
+            source={require('./assets/weather/no-permission.png')}
+            style={{
+              resizeMode: 'contain',
+              flex: 1,
+              width: 250,
+              height: 250
+            }}
+          />
         </View>
       </View>
     )
@@ -88,7 +102,8 @@ export default function App () {
       <KeyboardAvoidingView
         contentContainerStyle={{ flexGrow: 1 }}
         style={{
-          flex: 1
+          flexGrow: 1,
+          height: '100%'
         }}
         enabled
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -97,17 +112,43 @@ export default function App () {
           android: 150
         })}
       >
-        <View style={styles.search}>
-          <TextInput
-            keyboardType='default'
-            style={styles.textInput}
-            placeholder='Search city'
-            onSubmitEditing={() => getWeather(value)}
-            onChangeText={onChangeText}
-          />
-        </View>
+        {!loading && fetchWeather && (
+          <View style={styles.search}>
+            <TextInput
+              keyboardType='default'
+              style={styles.textInput}
+              placeholder='Search city'
+              onSubmitEditing={() => getWeather(value)}
+              onChangeText={onChangeText}
+            />
+          </View>
+        )}
 
-        {!loading && (
+        {!loading && !fetchWeather && (
+          <View style={styles.search}>
+            <TextInput
+              keyboardType='default'
+              style={styles.textInput}
+              placeholder='Try "Oymyakon"'
+              onSubmitEditing={() => getWeather(value)}
+              onChangeText={onChangeText}
+            />
+            <View>
+              <Image
+                source={require('./assets/weather/solar-system.png')}
+                style={{
+                  resizeMode: 'contain',
+                  flex: 1,
+                  width: 250,
+                  height: 250
+                }}
+              />
+            </View>
+            <StatusBar style='auto' />
+          </View>
+        )}
+
+        {!loading && fetchWeather && (
           <View
             style={{
               ...styles.container,
@@ -116,20 +157,20 @@ export default function App () {
             onLayout={onLayoutRootView}
           >
             <CurrentWeather
-              temperature={fetchWeather?.temp.toString()}
-              description={fetchWeather?.description.toString()}
-              time={fetchWeather?.time.toString()}
-              date={fetchWeather?.date.toString()}
-              city={fetchWeather?.cityName.toString()}
-              icon={fetchWeather?.icon}
+              temperature={cityWeather?.temp.toString()}
+              description={cityWeather?.description.toString()}
+              time={cityWeather?.time.toString()}
+              date={cityWeather?.date.toString()}
+              city={cityWeather?.cityName.toString()}
+              icon={cityWeather?.icon}
             ></CurrentWeather>
 
             <WeatherCondition
-              feelsLike={fetchWeather?.feelsLike.toString()}
-              wind={fetchWeather?.wind.toString()}
-              humidity={fetchWeather?.humidity.toString()}
-              high={fetchWeather?.high.toString()}
-              low={fetchWeather?.low.toString()}
+              feelsLike={cityWeather?.feelsLike.toString()}
+              wind={cityWeather?.wind.toString()}
+              humidity={cityWeather?.humidity.toString()}
+              high={cityWeather?.high.toString()}
+              low={cityWeather?.low.toString()}
             ></WeatherCondition>
 
             <StatusBar style='auto' />
@@ -180,5 +221,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: 'black',
     fontFamily: 'RadioCanada-Regular'
-  }
+  },
+  icon: { width: '25%', height: '25%' }
 })

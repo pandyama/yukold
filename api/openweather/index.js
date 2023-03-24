@@ -57,17 +57,19 @@ const getWeatherIcon = (code) => {
   if (code >= 700 && code < 800) {
     return "clearSunny2";
   }
-  if (code === 800) {
-    return "clearSunny";
-  }
   if (code > 800) {
+    const num = getRandomNumber();
+    if (num === 0) {
+      return "clearSunny";
+    }
     return "clearSunny3";
   }
 };
 
+//TODO: if an invalid city is searched
+
 export const weather = async (city, lat, lon) => {
   const key = Constants.expoConfig.extra.API_KEY;
-  // console.log("🚀", city);
   let test;
 
   if (lat && lon) {
@@ -87,9 +89,6 @@ export const weather = async (city, lat, lon) => {
       return;
     }
   }
-
-  const weatherCode = test.data.weather[0].id;
-  const icon = getWeatherIcon(weatherCode);
 
   const utc = moment();
   let localTimeOffset;
@@ -112,6 +111,15 @@ export const weather = async (city, lat, lon) => {
     localDate = moment(localTimeStamp).format("MMMM DD");
     localTime = moment(localTimeStamp).format("hh:mm A");
   }
+
+  const weatherCode = test.data.weather[0].id;
+  console.log("🚀 ~ file: index.js:113 ~ weather ~ weatherCode:", weatherCode);
+  const icon =
+    moment(localTimeStamp).hour() > 7 && moment(localTimeStamp).hour() < 19
+      ? getWeatherIcon(weatherCode)
+      : "sleeping";
+
+  console.log("🚀 ~ file: index.js:114 ~ weather ~ icon:", icon);
 
   const weatherStat = {
     cityName: test.data.name,

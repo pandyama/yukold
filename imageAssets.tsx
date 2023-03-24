@@ -11,7 +11,8 @@ const imageAssets = {
   heavySnow: require('./assets/weather/Snow/Heavy-Snow.png'),
   lightSnow: require('./assets/weather/Snow/Light-Snow.png'),
   lightSnow2: require('./assets/weather/Snow/Light-Snow2.png'),
-  mildSnow: require('./assets/weather/Snow/Mild-Snow.png')
+  mildSnow: require('./assets/weather/Snow/Mild-Snow.png'),
+  sleeping: require('./assets/weather/sleeping.png')
 }
 
 export default imageAssets

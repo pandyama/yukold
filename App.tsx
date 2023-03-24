@@ -5,19 +5,16 @@ import {
   StyleSheet,
   View,
   TextInput,
-  Text,
   Image,
   Platform,
   KeyboardAvoidingView,
-  useWindowDimensions,
-  PermissionsAndroid
+  useWindowDimensions
 } from 'react-native'
 import CurrentWeather from './components/CurrentWeather/CurrentWeather'
 import WeatherCondition from './components/WeatherCondition/WeatherCondition'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import * as Location from 'expo-location'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { weather } from './api/openweather'
 
 export default function App () {

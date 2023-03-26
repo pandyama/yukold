@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 import { StatusBar } from 'expo-status-bar'
 import {
+  Alert,
   StyleSheet,
   View,
   TextInput,
@@ -29,7 +30,11 @@ export default function App () {
   const [cityWeather, setWeather]: any = useState(null)
   const [value, onChangeText] = useState('')
   const [location, setLocation]: any = useState()
-  const [errorMsg, setErrorMsg] = useState('')
+
+  const cityNotFoundAlert = () =>
+    Alert.alert(`Sorry, I couldn't find that`, '', [
+      { text: 'OK', onPress: () => console.log('OK Pressed') }
+    ])
 
   const getWeather = (
     city?: string | null,
@@ -38,9 +43,15 @@ export default function App () {
   ) => {
     setLoading(true)
     weather(city, lat, lon).then((res: any) => {
-      setLoading(false)
-      setFetchWeather(true)
-      setWeather(res)
+      if (res.success === false) {
+        setLoading(false)
+        setFetchWeather(false)
+        cityNotFoundAlert()
+      } else {
+        setLoading(false)
+        setFetchWeather(true)
+        setWeather(res.data)
+      }
     })
   }
 
@@ -50,7 +61,7 @@ export default function App () {
         let { status } = await Location.requestForegroundPermissionsAsync()
         if (status !== 'granted') {
           setLoading(false)
-          setErrorMsg('Permission to access location was denied')
+          setFetchWeather(false)
           return
         }
 

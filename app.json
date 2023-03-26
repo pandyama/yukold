@@ -21,6 +21,9 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.mp.yukold",
+      "versionCode": 1,
+      "version": "1.0.0",
       "adaptiveIcon": {
         "foregroundImage": "./assets/appIcon.png",
         "backgroundColor": "#FFFFFF"

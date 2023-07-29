@@ -2,9 +2,9 @@
   "expo": {
     "name": "yukold",
     "slug": "yukold",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/appIcon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash-yukold.png",
@@ -14,16 +14,19 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mp.yukold",
+      "buildNumber": "1.0.3",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "We use your location to fetch weather for the area you are located in",
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.mp.yukold",
-      "versionCode": 2,
-      "version": "1.0.1",
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/appIcon.png",
         "backgroundColor": "#FFFFFF"

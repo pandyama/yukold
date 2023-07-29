@@ -11,7 +11,7 @@ export const weather = async (city, lat, lon) => {
   if (lat && lon) {
     try {
       apiResponse = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${key}`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=0fe37647bf3c4095418a1c5392bb60cc`
       );
     } catch (e) {
       return { success: false };
@@ -19,7 +19,7 @@ export const weather = async (city, lat, lon) => {
   } else if (city) {
     try {
       apiResponse = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=0fe37647bf3c4095418a1c5392bb60cc`
       );
     } catch (e) {
       return { success: false };

@@ -1,28 +1,24 @@
 {
   "cli": {
-    "version": ">= 3.8.1"
+    "version": ">= 3.13.3"
   },
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal",
-      "ios": {
-        "resourceClass": "m-medium"
-      }
+      "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal",
-      "ios": {
-        "resourceClass": "m-medium"
-      }
+      "distribution": "internal"
     },
-    "production": {
-      "ios": {
-        "resourceClass": "m-medium"
-      }
-    }
+    "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "pandyama2@gmail.com",
+        "ascAppId": "6450157299",
+        "appleTeamId": "6T5R249R67"
+      }
+    }
   }
 }

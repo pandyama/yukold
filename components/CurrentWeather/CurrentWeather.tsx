@@ -1,26 +1,26 @@
-import { Text, View, Image } from 'react-native'
-import { styles } from './CurrentWeatherStyle'
-import CurrentTime from '../CurrentTime/CurrentTime'
-import imageAssets from '../../imageAssets'
+import { Text, View, Image } from "react-native";
+import { styles } from "./CurrentWeatherStyle";
+import CurrentTime from "../CurrentTime/CurrentTime";
+import imageAssets from "../../imageAssets";
 
 interface Weather {
-  temperature: string
-  description: string
-  time: string
-  date: string
-  city: string
-  icon: string
+  temperature: string;
+  description: string;
+  time: string;
+  date: string;
+  city: string;
+  icon: string;
 }
 
-type T = keyof typeof imageAssets
+type T = keyof typeof imageAssets;
 
-export default function CurrentWeather ({
+export default function CurrentWeather({
   temperature,
   description,
   time,
   date,
   city,
-  icon
+  icon,
 }: Weather) {
   return (
     <View style={styles.card}>
@@ -31,7 +31,7 @@ export default function CurrentWeather ({
       <View style={styles.icon}>
         <Image
           source={imageAssets[icon as T]}
-          style={{ resizeMode: 'center', width: '100%', height: '100%' }}
+          style={{ resizeMode: "cover", width: "100%", height: "100%" }}
         />
       </View>
       <View style={styles.currentTemp}>
@@ -41,5 +41,5 @@ export default function CurrentWeather ({
         <Text style={styles.descText}>{description?.toLocaleUpperCase()}</Text>
       </View>
     </View>
-  )
+  );
 }

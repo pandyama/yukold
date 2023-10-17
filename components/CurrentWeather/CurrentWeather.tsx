@@ -31,7 +31,7 @@ export default function CurrentWeather({
       <View style={styles.icon}>
         <Image
           source={imageAssets[icon as T]}
-          style={{ resizeMode: "cover", width: "100%", height: "100%" }}
+          style={{ resizeMode: "contain", width: "100%", height: "100%" }}
         />
       </View>
       <View style={styles.currentTemp}>

@@ -2,7 +2,7 @@
   "expo": {
     "name": "yukold",
     "slug": "yukold",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/appIcon.png",
     "userInterfaceStyle": "light",
@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mp.yukold",
-      "buildNumber": "1.0.3",
+      "buildNumber": "1.0.4",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "We use your location to fetch weather for the area you are located in",
         "ITSAppUsesNonExemptEncryption": false

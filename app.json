@@ -2,7 +2,7 @@
   "expo": {
     "name": "yukold",
     "slug": "yukold",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -36,8 +36,8 @@
     ],
     "android": {
       "package": "com.mp.yukold",
-      "versionCode": 3,
-      "version": "1.1.0",
+      "versionCode": 5,
+      "version": "1.1.1",
       "adaptiveIcon": {
         "foregroundImage": "./assets/appIcon.png",
         "backgroundColor": "#FFFFFF"

@@ -9,8 +9,8 @@ export default {
   },
   android: {
     package: "com.mp.yukold",
-    versionCode: 3,
-    version: "1.0.2",
+    versionCode: 6,
+    version: "1.1.2",
     adaptiveIcon: {
       foregroundImage: "./assets/appIcon.png",
       backgroundColor: "#FFFFFF",

@@ -2,7 +2,7 @@
   "expo": {
     "name": "yukold",
     "slug": "yukold",
-    "version": "1.0.1",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -23,8 +23,8 @@
         "expo-build-properties",
         {
           "android": {
-            "compileSdkVersion": 14,
-            "targetSdkVersion": 33
+            "compileSdkVersion": 16,
+            "targetSdkVersion": 36
           },
           "ios": {
             "deploymentTarget": "13.0"
@@ -36,8 +36,8 @@
     ],
     "android": {
       "package": "com.mp.yukold",
-      "versionCode": 5,
-      "version": "1.1.1",
+      "versionCode": 7,
+      "version": "1.1.3",
       "adaptiveIcon": {
         "foregroundImage": "./assets/appIcon.png",
         "backgroundColor": "#FFFFFF"

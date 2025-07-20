@@ -1,28 +1,28 @@
-import axios from "axios";
-import moment from "moment";
-import Constants from "expo-constants";
+import axios from 'axios'
+import moment from 'moment'
+import Constants from 'expo-constants'
 
-const { getWeatherIcon, getLocalTimeAndDate } = require("../../common/util");
+const { getWeatherIcon, getLocalTimeAndDate } = require('../../common/util')
 
 export const weather = async (city, lat, lon) => {
-  const key = Constants.expoConfig.extra.API_KEY;
-  let apiResponse;
+  const key = Constants.expoConfig.extra.API_KEY
+  let apiResponse
 
   if (lat && lon) {
     try {
       apiResponse = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${key}`
-      );
+      )
     } catch (e) {
-      return { success: false };
+      return { success: false }
     }
   } else if (city) {
     try {
       apiResponse = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`
-      );
+      )
     } catch (e) {
-      return { success: false };
+      return { success: false }
     }
   }
 
@@ -30,13 +30,13 @@ export const weather = async (city, lat, lon) => {
     date: localDate,
     time: localTime,
     timestamp: localTimeStamp,
-  } = getLocalTimeAndDate(apiResponse.data.timezone);
+  } = getLocalTimeAndDate(apiResponse.data.timezone)
 
-  const weatherCode = apiResponse.data.weather[0].id;
+  const weatherCode = apiResponse.data.weather[0].id
   const icon =
     moment(localTimeStamp).hour() > 6 && moment(localTimeStamp).hour() < 19
       ? getWeatherIcon(weatherCode)
-      : "sleeping";
+      : 'sleeping'
 
   const weatherStat = {
     cityName: apiResponse.data.name,
@@ -52,6 +52,6 @@ export const weather = async (city, lat, lon) => {
     time: localTime,
     date: localDate,
     icon,
-  };
-  return { data: weatherStat, success: true };
-};
+  }
+  return { data: weatherStat, success: true }
+}

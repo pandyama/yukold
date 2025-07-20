@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from 'react'
 
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from 'expo-status-bar'
 import {
   Alert,
   StyleSheet,
@@ -10,81 +10,83 @@ import {
   Platform,
   KeyboardAvoidingView,
   useWindowDimensions,
-} from "react-native";
-import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
-import WeatherCondition from "./components/WeatherCondition/WeatherCondition";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import * as Location from "expo-location";
-import { weather } from "./api/openweather";
+} from 'react-native'
+import CurrentWeather from './components/CurrentWeather/CurrentWeather'
+import WeatherCondition from './components/WeatherCondition/WeatherCondition'
+import { useFonts } from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen'
+import * as Location from 'expo-location'
+import { weather } from './api/openweather'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    "Quicksand-Regular": require("./assets/fonts/Quicksand/Quicksand-Regular.ttf"),
-    "RadioCanada-Bold": require("./assets/fonts/RadioCanada/RadioCanada-Bold.ttf"),
-    "RadioCanada-Regular": require("./assets/fonts/RadioCanada/RadioCanada-Regular.ttf"),
-  });
+    'Quicksand-Regular': require('./assets/fonts/Quicksand/Quicksand-Regular.ttf'),
+    'RadioCanada-Bold': require('./assets/fonts/RadioCanada/RadioCanada-Bold.ttf'),
+    'RadioCanada-Regular': require('./assets/fonts/RadioCanada/RadioCanada-Regular.ttf'),
+  })
 
-  const [loading, setLoading] = useState(true);
-  const [fetchWeather, setFetchWeather]: any = useState(false);
-  const [cityWeather, setWeather]: any = useState(null);
-  const [value, onChangeText] = useState("");
-  const [location, setLocation]: any = useState();
+  const [loading, setLoading] = useState(true)
+  const [fetchWeather, setFetchWeather]: any = useState(false)
+  const [cityWeather, setWeather]: any = useState(null)
+  const [value, onChangeText] = useState('')
+  const [location, setLocation]: any = useState()
 
   const cityNotFoundAlert = () =>
-    Alert.alert(`Sorry, I couldn't find that`, "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
-    ]);
+    Alert.alert(`Sorry, I couldn't find that`, '', [
+      { text: 'OK', onPress: () => console.log('OK Pressed') },
+    ])
 
   const getWeather = (
     city?: string | null,
     lat?: number | null,
     lon?: number | null
   ) => {
-    setLoading(true);
+    setLoading(true)
     weather(city, lat, lon).then((res: any) => {
+      console.log('🚀 >> weather >> res>>', res.data)
+
       if (res.success === false) {
-        setLoading(false);
-        setFetchWeather(false);
-        cityNotFoundAlert();
+        setLoading(false)
+        setFetchWeather(false)
+        cityNotFoundAlert()
       } else {
-        setLoading(false);
-        setFetchWeather(true);
-        setWeather(res.data);
+        setLoading(false)
+        setFetchWeather(true)
+        setWeather(res.data)
       }
-    });
-  };
+    })
+  }
 
   useEffect(() => {
     const getData = async () => {
       try {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== "granted") {
-          setLoading(false);
-          setFetchWeather(false);
-          return;
+        let { status } = await Location.requestForegroundPermissionsAsync()
+        if (status !== 'granted') {
+          setLoading(false)
+          setFetchWeather(false)
+          return
         }
 
-        const loc = await Location.getCurrentPositionAsync({});
-        setLocation(loc);
-        getWeather("Calgary", loc.coords.latitude, loc.coords.longitude);
+        const loc = await Location.getCurrentPositionAsync({})
+        setLocation(loc)
+        getWeather('Calgary', loc.coords.latitude, loc.coords.longitude)
       } catch (e) {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    getData();
-  }, []);
+    }
+    getData()
+  }, [])
 
-  const windowHeight = useWindowDimensions().height;
+  const windowHeight = useWindowDimensions().height
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
-      await SplashScreen.hideAsync();
+      await SplashScreen.hideAsync()
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded])
 
   if (!fontsLoaded) {
-    return null;
+    return null
   }
 
   if (loading) {
@@ -92,9 +94,9 @@ export default function App() {
       <View style={styles.card}>
         <View style={styles.currentTemp}>
           <Image
-            source={require("./assets/weather/no-permission.png")}
+            source={require('./assets/weather/no-permission.png')}
             style={{
-              resizeMode: "contain",
+              resizeMode: 'contain',
               flex: 1,
               width: 250,
               height: 250,
@@ -102,7 +104,7 @@ export default function App() {
           />
         </View>
       </View>
-    );
+    )
   }
 
   return (
@@ -111,10 +113,10 @@ export default function App() {
         contentContainerStyle={{ flexGrow: 1 }}
         style={{
           flexGrow: 1,
-          height: "100%",
+          height: '100%',
         }}
         enabled
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.select({
           ios: 0,
           android: 150,
@@ -123,9 +125,9 @@ export default function App() {
         {!loading && fetchWeather && (
           <View style={styles.search}>
             <TextInput
-              keyboardType="default"
+              keyboardType='default'
               style={styles.textInput}
-              placeholder="Search city"
+              placeholder='Search city'
               onSubmitEditing={() => getWeather(value)}
               onChangeText={onChangeText}
             />
@@ -135,7 +137,7 @@ export default function App() {
         {!loading && !fetchWeather && (
           <View style={styles.search}>
             <TextInput
-              keyboardType="default"
+              keyboardType='default'
               style={styles.textInput}
               placeholder='Try "Oymyakon"'
               onSubmitEditing={() => getWeather(value)}
@@ -143,16 +145,16 @@ export default function App() {
             />
             <View>
               <Image
-                source={require("./assets/weather/solar-system.png")}
+                source={require('./assets/weather/solar-system.png')}
                 style={{
-                  resizeMode: "contain",
+                  resizeMode: 'contain',
                   flex: 1,
                   width: 250,
                   height: 250,
                 }}
               />
             </View>
-            <StatusBar style="auto" />
+            <StatusBar style='auto' />
           </View>
         )}
 
@@ -181,43 +183,43 @@ export default function App() {
               low={cityWeather?.low.toString()}
             ></WeatherCondition>
 
-            <StatusBar style="auto" />
+            <StatusBar style='auto' />
           </View>
         )}
       </KeyboardAvoidingView>
     </>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#449AFF",
-    justifyContent: "flex-start",
+    backgroundColor: '#449AFF',
+    justifyContent: 'flex-start',
   },
   textInput: {
-    backgroundColor: "#eff3f9",
+    backgroundColor: '#eff3f9',
     borderRadius: 10,
     borderWidth: 1,
     padding: 10,
-    width: "100%",
-    textAlign: "center",
-    fontFamily: "RadioCanada-Regular",
+    width: '100%',
+    textAlign: 'center',
+    fontFamily: 'RadioCanada-Regular',
     fontSize: 20,
   },
   search: {
-    backgroundColor: "#eff3f9",
-    alignItems: "center",
-    justifyContent: "flex-start",
+    backgroundColor: '#eff3f9',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     paddingTop: 47,
     paddingRight: 7,
     paddingLeft: 7,
   },
   card: {
-    backgroundColor: "#eff3f9",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "space-evenly",
+    backgroundColor: '#eff3f9',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
   currentTemp: {
     padding: 15,
@@ -227,8 +229,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 40,
-    color: "black",
-    fontFamily: "RadioCanada-Regular",
+    color: 'black',
+    fontFamily: 'RadioCanada-Regular',
   },
-  icon: { width: "25%", height: "25%" },
-});
+  icon: { width: '25%', height: '25%' },
+})

@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { styles } from './WeatherConditionStyle'
+import React from 'react'
 
 interface Conditions {
   feelsLike: string
@@ -10,12 +11,12 @@ interface Conditions {
   low: string
 }
 
-export default function WeatherCondition ({
+export default function WeatherCondition({
   feelsLike,
   wind,
   humidity,
   high,
-  low
+  low,
 }: Conditions) {
   return (
     <View>

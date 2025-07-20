@@ -15,3 +15,5 @@ npx expo install expo@latest
 OR
 npx expo install expo@^53.0.0
 ```
+## Android production build
+- Run `eas build --platform android` and it will send a build to Expo web app

@@ -92,20 +92,26 @@ export default function App() {
     lat?: number | null,
     lon?: number | null
   ) => {
-    setLoading(true)
-    weather(city, lat, lon).then((res: any) => {
-      console.log('🚀 >> weather >> res>>', res.data)
+    try {
+      setLoading(true)
+      weather(city, lat, lon).then((res: any) => {
+        console.log('🚀 >> weather >> res>>', res.data)
 
-      if (res.success === false) {
-        setLoading(false)
-        setFetchWeather(false)
-        cityNotFoundAlert()
-      } else {
-        setLoading(false)
-        setFetchWeather(true)
-        setWeather(res.data)
-      }
-    })
+        if (res.success === false) {
+          setLoading(false)
+          setFetchWeather(false)
+          cityNotFoundAlert()
+        } else {
+          setLoading(false)
+          setFetchWeather(true)
+          setWeather(res.data)
+        }
+      })
+    } catch (e) {
+      console.log('🚀 >> getWeather >> e>>', e)
+
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -158,7 +164,8 @@ export default function App() {
     )
   }
 
-  const gradient = GRADIENTS.fresh[0]
+  // 5, 8, 14, 15
+  const gradient = GRADIENTS.fresh[5]
 
   return (
     <>

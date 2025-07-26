@@ -4,11 +4,11 @@ export const styles = StyleSheet.create({
   card: {
     justifyContent: 'space-around',
     width: '100%',
-    marginLeft: 5
+    marginLeft: 5,
   },
   text: {
     fontSize: 16,
     fontFamily: 'RadioCanada-Regular',
-    color: '#878787'
-  }
+    color: '#faffd1',
+  },
 })

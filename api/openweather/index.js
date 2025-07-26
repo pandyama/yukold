@@ -1,9 +1,10 @@
 import axios from 'axios'
 import moment from 'moment'
 import Constants from 'expo-constants'
+import { getWeatherIcon } from '../../common'
 const countriesList = require('./countries.json')
 
-const { getWeatherIcon, getLocalTimeAndDate } = require('../../common/util')
+const { getLocalTimeAndDate } = require('../../common/util')
 
 export const weather = async (city, lat, lon) => {
   const key = Constants.expoConfig.extra.API_KEY

@@ -2,25 +2,31 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#eff3f9',
-    height: '61%',
+    minHeight: 0,
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
   currentTemp: {},
   weatherDescription: {},
   city: {
     padding: 7,
-    // margin: 25,
-    width: '100%'
+    width: '100%',
   },
   text: {
-    fontSize: 40,
-    fontFamily: 'RadioCanada-Regular'
+    fontSize: 20,
+    fontFamily: 'RadioCanada-Regular',
+  },
+  currentTempText: {
+    fontSize: 35,
+    fontFamily: 'RadioCanada-Regular',
+  },
+  countryText: {
+    fontSize: 15,
+    fontFamily: 'RadioCanada-Regular',
   },
   descText: {
-    fontSize: 30,
-    fontFamily: 'RadioCanada-Regular'
+    fontSize: 25,
+    fontFamily: 'RadioCanada-Regular',
   },
-  icon: { width: '25%', height: '25%' }
+  icon: { width: '20%', height: '20%' },
 })

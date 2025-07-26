@@ -7,8 +7,7 @@ const countriesList = require('./countries.json')
 const { getLocalTimeAndDate } = require('../../common/util')
 
 export const weather = async (city, lat, lon) => {
-  // const key = Constants.expoConfig.extra.API_KEY
-  const key = '0fe37647bf3c4095418a1c5392bb60cc'
+  const key = Constants.expoConfig.extra.API_KEY
   let apiResponse
   let geoApiResponse
 

@@ -10,9 +10,9 @@ const lightThunderstormCodes = [200, 210, 231]
 const heavyThunderstormCodes = [202, 212, 232]
 const otherThunderstormCodes = [201, 211, 221, 230]
 
-export default getWeatherIcon = (code) => {
-  console.log('🚀 >> code>>', code)
+const getRandomNumber = () => Math.floor(Math.random() * 2)
 
+export default getWeatherIcon = (code) => {
   if (lightThunderstormCodes.includes(code)) {
     return 'lightThunderstorm'
   }

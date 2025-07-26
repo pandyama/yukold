@@ -5,7 +5,7 @@ react native weather app
 
 Below is the look of the app
 
-![1](https://github.com/pandyama/yukold/blob/main/assets/AppScreenshot.jpg)
+![1](https://github.com/pandyama/yukold/blob/main/assets/AppScreenshot.png)
 ---
 
 ## Expo upgrade notes

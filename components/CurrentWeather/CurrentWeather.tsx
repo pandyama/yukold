@@ -35,7 +35,7 @@ export default function CurrentWeather({
         <Text style={styles.text}>
           {city}, {country}
         </Text>
-        <CurrentTime time={time} date={date}></CurrentTime>
+        <CurrentTime time={time} date={date} />
       </View>
       <View style={styles.icon}>
         <Image

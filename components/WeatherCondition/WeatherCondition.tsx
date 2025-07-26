@@ -1,7 +1,7 @@
-import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { Text, View } from 'react-native'
 import { styles } from './WeatherConditionStyle'
 import React from 'react'
+import { Precipitation, Wind, Sunrise, Sunset } from '../Icons'
 
 interface Conditions {
   feelsLike: string
@@ -9,6 +9,8 @@ interface Conditions {
   humidity: string
   high: string
   low: string
+  sunrise: any
+  sunset: any
 }
 
 export default function WeatherCondition({
@@ -17,50 +19,34 @@ export default function WeatherCondition({
   humidity,
   high,
   low,
+  sunrise,
+  sunset,
 }: Conditions) {
   return (
     <View>
       <View style={styles.row}>
-        <View style={styles.city}>
-          <Text style={{ ...styles.text, fontSize: 27, color: 'black' }}>
-            Feels Like
-          </Text>
-          <Text style={{ ...styles.text, fontSize: 22 }}>
-            {feelsLike} &deg;C
-          </Text>
+        <View style={styles.wind}>
+          <Wind size={64} />
+          <Text style={{ ...styles.text, fontSize: 20 }}>{wind} km/h</Text>
         </View>
-        <View style={styles.city}>
-          <Text style={{ ...styles.text, fontSize: 27, color: 'black' }}>
-            Wind
-          </Text>
-          <Text style={{ ...styles.text, fontSize: 22 }}>{wind} km/h</Text>
+        <View style={styles.wind}>
+          <Precipitation size={64} />
+          <Text style={{ ...styles.text, fontSize: 20 }}>70%</Text>
         </View>
       </View>
+
       <View style={styles.row}>
-        <View style={styles.city}>
-          <Text style={{ ...styles.text, fontSize: 27, color: 'black' }}>
-            Day High
-          </Text>
-          <Text style={{ ...styles.text, fontSize: 22 }}>{high} &deg;C</Text>
+        <View style={{ ...styles.wind, backgroundColor: '#FAD961' }}>
+          <Text style={{ ...styles.text, fontSize: 20 }}>{sunrise}</Text>
+          <Sunrise size={48} />
         </View>
-        <View style={styles.city}>
-          <Text style={{ ...styles.text, fontSize: 27, color: 'black' }}>
-            Day Low
+
+        <View style={{ ...styles.wind, backgroundColor: '#0F2027' }}>
+          <Sunset size={48} />
+          <Text style={{ ...styles.text, fontSize: 20, color: '#FFFFFF' }}>
+            {sunset}
           </Text>
-          <Text style={{ ...styles.text, fontSize: 22 }}>{low} &deg;C</Text>
         </View>
-        {/* <View style={styles.city}>
-          <Text style={{ ...styles.text, fontSize: 27, color: 'black' }}>
-            Precipitation
-          </Text>
-          <Text style={{ ...styles.text, fontSize: 22 }}>70%</Text>
-        </View>
-        <View style={styles.city}>
-          <Text style={{ ...styles.text, fontSize: 27, color: 'black' }}>
-            Humidity
-          </Text>
-          <Text style={{ ...styles.text, fontSize: 22 }}>{humidity}%</Text>
-        </View> */}
       </View>
     </View>
   )

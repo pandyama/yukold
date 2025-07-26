@@ -2,19 +2,24 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   row: {
-    borderRadius: 5,
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-evenly',
-    marginTop: 20
+    width: '100%',
+    marginTop: 10,
+    gap: 15, // adds spacing between children
+    paddingHorizontal: 16, // 👈 moves the whole row inward
   },
-  city: {
+  wind: {
+    borderRadius: 30,
     alignItems: 'center',
-    width: '50%',
-    justifyContent: 'space-around'
+    justifyContent: 'center',
+    padding: 8,
+    flex: 1,
+    aspectRatio: 1,
+    backgroundColor: '#C2E9FB',
   },
   text: {
     fontFamily: 'RadioCanada-Regular',
-    color: 'white'
-  }
+    color: 'black',
+  },
 })

@@ -10,7 +10,10 @@ interface Weather {
   time: string
   date: string
   city: string
+  country: string
   icon: string
+  high: string
+  low: string
 }
 
 type T = keyof typeof imageAssets
@@ -21,12 +24,17 @@ export default function CurrentWeather({
   time,
   date,
   city,
+  high,
+  low,
+  country,
   icon,
 }: Weather) {
   return (
     <View style={styles.card}>
       <View style={styles.city}>
-        <Text style={styles.text}>{city}</Text>
+        <Text style={styles.text}>
+          {city}, {country}
+        </Text>
         <CurrentTime time={time} date={date}></CurrentTime>
       </View>
       <View style={styles.icon}>
@@ -36,10 +44,15 @@ export default function CurrentWeather({
         />
       </View>
       <View style={styles.currentTemp}>
-        <Text style={styles.text}>{temperature} &deg;C</Text>
+        <Text style={styles.currentTempText}>{temperature} &deg;C</Text>
+      </View>
+      <View style={styles.currentTemp}>
+        <Text style={styles.text}>
+          High: {high} &deg;C &nbsp; Low: {low} &deg;C
+        </Text>
       </View>
       <View style={styles.weatherDescription}>
-        <Text style={styles.descText}>{description?.toLocaleUpperCase()}</Text>
+        <Text style={styles.descText}>{description}</Text>
       </View>
     </View>
   )

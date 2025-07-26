@@ -9,6 +9,6 @@ export const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontFamily: 'RadioCanada-Regular',
-    color: '#faffd1',
+    color: '#000000',
   },
 })
